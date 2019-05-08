@@ -16,7 +16,7 @@ public:
     alphabeta();
     char ReversePlayer(char);
     int alpha_beta(tree*, int, char, int, int);
-    
+//rr    
     
 };
 #endif // ALPHABETA_H_INCLUDED
