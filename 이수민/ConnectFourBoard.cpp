@@ -5,16 +5,9 @@
 #include "ConnectFourBoard.h"
 using namespace std;
 
-/* a constructor that initializes all
- the member variables of this class
- creates a 2-d array dynamically for
- connect-four board using new operator
- then initializes all the cells to empty
- character
- creates dynamically a structure variable
- of type Move  and assigns its members
- row_inde and col_index to -1
- sets the player char variable to 'n'
+/* 이 클래스의 모든 멤버 변수들을 초기화하는 생성자가 새로운 연산자를 이용하여 커넥트포 보드를 위한 2차원 배열을 동적으로 생성한다.
+그리고 모든 셀들을 빈 character로 초기화하고 타입 Move의 구조 변수를 동적으로 만든다. 
+row_index와 col_index를 -1로 할당한다. player char 변수는 n으로 할당한다.-독고준석-
  */
 tic::tic(){
     
@@ -39,8 +32,7 @@ tic::tic(){
     player = 'n';
 }
 
-/*a boolean function that returns false if the
- board is not empty else returns true
+/*boolean 함수는 보드가 비어있지 않다면 false를 리턴하고 그렇지 않다면 true를 리턴함-독고준석-
  */
 bool tic::isBoardEmpty(){
     
@@ -53,9 +45,7 @@ bool tic::isBoardEmpty(){
     return true;
 }
 
-/* this function is used to
- make the first move by randomly
- choosing a column
+/* 이 함수는 랜덤으로 한 열을 고름으로써 첫 번째 move를 만드는데 이용된다.-독고준석-
  */
 int tic::makeFirstMove(){
     
@@ -67,21 +57,16 @@ int tic::makeFirstMove(){
     return random_col;
 }
 
-/*this is used to check all the possible moves
- that can be made by the player 1st case considered is
- checking for whether there are empty cells
- in 0th row,if present then stores that col location
- to col_index of the move's structure member variable
- 2nd case considered is checking for all other empty cells
- and if empty, checking whether the below cell is empty
- or not if empty then not storing this location else storing this location
- in col_index and row_index of the structure move
+/*이것은 player에 의해 만들어지는 모든 가능한 move들을 확인하기 위해 이용된다. 첫 번째 경우는 0번째 행에 빈 셀들이 있는지를 확인한다.
+만약 존재한다면 그 열 위치를 move의 구조 멤버 변수의 col_index에 저장한다.
+두 번째 경우는 모든 다른 빈 셀들을 확인한다. 비었다면, 그 아래의 셀이 비었는지를 확인한다. 비었다면, 이 위치를 저장하지 않고 
+그렇지 않다면 이 위치를 구조 move의 col_index와 row_index에 저장한다.-독고준석-
  */
 void tic::checkPossibleMoves(){
     
     int c=0;
     
-    //checking whether empty place is there for the 0th row
+    //0번째 행에 빈 셀들이 있는지 확인한다.-독고준석-
     for(int col=0;col<col_size;col++){
         if(board[0][col]==' '){
             this->moves[c].row_index = 0;
@@ -90,7 +75,7 @@ void tic::checkPossibleMoves(){
         }
     }
     
-    //checking for all other rows for empty places
+    //빈 공간에 대한 다른 모든 행을 확인-독고준석-
     for(int row=1;row<row_size;row++){
         for(int col=0;col<col_size;col++){
             if(board[row][col]==' '){
@@ -104,20 +89,19 @@ void tic::checkPossibleMoves(){
     }
 }
 
-/* this is a boolean function that return true
- if a player has won else return false
- it considers 4 cases
- 1st for continuous 4 in a row
- 2nd for continuous 4 in vertical
- 3rd for right diagonal win
- 4th for left diagonal win
+/* 이것은 사용자가 이기면 true, 그렇지 않으면 false를 리턴하는 boolean 함수이다. 4가지 경우를 고려한다. 
+1st 한 행에 연속적인 4
+ 2nd 수직으로 연속적인 4
+ 3rd 오른쪽 대각선으로 승리
+ 4th 왼쪽 대각선으로 승리
+-독고준석-
  */
 bool tic::checkPlayerWon(){
     
     bool win=false;
     char c1,c2,c3,c4;
     
-    //for checking row wins
+    //행으로 이긴 것을 확인-독고준석-
     for(int r=0;r<row_size;r++){
         for(int c=0;c<4;c++){
             if(!win){
@@ -125,7 +109,7 @@ bool tic::checkPlayerWon(){
                 c2 = board[r][c+1];
                 c3 = board[r][c+2];
                 c4 = board[r][c+3];
-                //checking for board[r][c]==board[r][c+1]==board[r][c+2]==board[r][c+3]
+                //board[r][c]==board[r][c+1]==board[r][c+2]==board[r][c+3]를 확인-독고준석-
                 if(c1!=' '||c2!=' '||c3!=' '||c4!=' '){ //not blank
                     if((c1 == c2)&& (c2 == c3) && (c3 == c4)){//모두 일치
                         win = true;
@@ -136,7 +120,7 @@ bool tic::checkPlayerWon(){
         }
     }
     
-    //for checking col wins
+    //열로 이긴 것을 확인-독고준석-
     if(!win){
         for(int r=0;r<3;r++){
             for(int c=0;c<col_size;c++){
@@ -144,8 +128,8 @@ bool tic::checkPlayerWon(){
                 c2 = board[r+1][c];
                 c3 = board[r+2][c];
                 c4 = board[r+3][c];
-                //checking for board[r][c]==board[r+1][c]==board[r+2][c]==board[r+3][c]
-                if(c1!=' '||c2!=' '||c3!=' '||c4!=' '){//not blank
+                //board[r][c]==board[r+1][c]==board[r+2][c]==board[r+3][c]를 확인-독고준석-
+                if(c1!=' '||c2!=' '||c3!=' '||c4!=' '){//비지 않음-독고준석-
                     if((c1 == c2)&& (c2 == c3) && (c3 == c4)){//모두 일치
                         win = true;
                         break;
@@ -155,7 +139,6 @@ bool tic::checkPlayerWon(){
         }
     }
     
-    //looking from right end of array rhs-diagonal
     /* ---O
        --O-
        -O--
@@ -168,7 +151,7 @@ bool tic::checkPlayerWon(){
                 c2 = board[r+1][c-1];
                 c3 = board[r+2][c-2];
                 c4 = board[r+3][c-3];
-                //checking for board[r][c]==board[r+1][c-1]==board[r+2][c-2]==board[r+3][c-3]
+                //board[r][c]==board[r+1][c-1]==board[r+2][c-2]==board[r+3][c-3]를 확인-독고준석-
                 if(c1!=' '||c2!=' '||c3!=' '||c4!=' '){
                     if((c1 == c2)&& (c2== c3) && (c3== c4)){
                         //cout<<"win"<<endl;
@@ -179,7 +162,6 @@ bool tic::checkPlayerWon(){
             }
         }
     }
-    //looking form left end of array lhs-diagonal
     /*
      O---
      -O--
@@ -193,7 +175,7 @@ bool tic::checkPlayerWon(){
                 c2 = board[r+1][c+1];
                 c3 = board[r+2][c+2];
                 c4 = board[r+3][c+3];
-                //checking for board[r][c]==board[r+1][c+1]==board[r+2][c+2]==board[r+3][c+3]
+                //board[r][c]==board[r+1][c+1]==board[r+2][c+2]==board[r+3][c+3]를 확인-독고준석-
                 if(c1!=' '||c2!=' '||c3!=' '||c4!=' '){
                     if((c1 == c2)&& (c2== c3) && (c3== c4)){
                         //cout<<"win"<<endl;
@@ -225,8 +207,7 @@ void tic::operator=(tic rhs){
     this->player = rhs.player;
 }
 
-/* this function is used for displaying
- board contents
+/* 이 함수는 보드 내용을 보여주는데 사용됨-독고준석-
  */
 void tic::display_board(tic *x){
     cout<<endl;
