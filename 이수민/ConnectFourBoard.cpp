@@ -111,7 +111,7 @@ bool tic::checkPlayerWon(){
                 c4 = board[r][c+3];
                 //board[r][c]==board[r][c+1]==board[r][c+2]==board[r][c+3]를 확인-독고준석-
                 if(c1!=' '||c2!=' '||c3!=' '||c4!=' '){ //not blank
-                    if((c1 == c2)&& (c2 == c3) && (c3 == c4)){//모두 일치
+                    if((c1 == c2)&& (c2 == c3) && (c3 == c4)){//모두 일치-이수민-
                         win = true;
                         break;
                     }
@@ -130,7 +130,7 @@ bool tic::checkPlayerWon(){
                 c4 = board[r+3][c];
                 //board[r][c]==board[r+1][c]==board[r+2][c]==board[r+3][c]를 확인-독고준석-
                 if(c1!=' '||c2!=' '||c3!=' '||c4!=' '){//비지 않음-독고준석-
-                    if((c1 == c2)&& (c2 == c3) && (c3 == c4)){//모두 일치
+                    if((c1 == c2)&& (c2 == c3) && (c3 == c4)){//모두 일치-이수민-
                         win = true;
                         break;
                     }
