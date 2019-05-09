@@ -30,8 +30,8 @@ int main(){
     int choiceX,choiceO;
     
     cout<<"선공하시겠습니까? 후공하시겠습니까?"<<endl;
-    cout<<"  1 - 선공(X)"<<endl;
-    cout<<"  2 - 후공(O)"<<endl;
+    cout<<"  1 - 선공(X)"<<endl;//1이면 선공-독고준석-
+    cout<<"  2 - 후공(O)"<<endl;//2이면 후공-독고준석-
     cout<<endl;
     cin>>order;
     cout<<endl;
@@ -52,42 +52,42 @@ int main(){
     cout<<"---------------------------------------------------------"<<endl;
     
     board_ob->display_board(board_ob);
-    board_ob->player = 'X'; //선공은 항상 X.
+    board_ob->player = 'X'; //선공은 항상 X-이수민-
     
     alphabeta ab_ob;
-    
+    //이긴 경우가 있는지 체크, 없으면 계속 while문 돎-독고준석-
     while(!board_ob->checkPlayerWon()){
         
         tree *head = new tree;
         *(head->ob) = *board_ob;
-        
+        //보드가 비었는지 확인, 비었으면 진행-독고준석-
         if(head->ob->isBoardEmpty()){
             if(choiceX == 0 && moves_made == 0){
                 int c;
                 cout<<"User's turn!"<<endl;
                     cout<<"Fisrt move cannot be column 3!"<<endl;
                     cout<<"select column: ";
-                    cin>>c;
+                    cin>>c;//원하는 열을 입력 받음-독고준석-
                     cout<<endl;
-                    while(c==3){
+                    while(c==3){//만약 3을 누르면 다시 입력 받음-독고준석-
                         cout<<"Select again: ";
                         cin>>c;
                         cout<<endl;
                     }
 
-                head->ob->board[0][c] = 'X';
+                head->ob->board[0][c] = 'X';//보드에 해당하는 열에 'X'표시-독고준석-
                 head->ob->player = 'X';
                 
             }
-            else if(choiceX == 1 && moves_made == 0){//AI가 선공
+            else if(choiceX == 1 && moves_made == 0){//AI가 선공-이수민-
                 int random_col_index = head->ob->makeFirstMove();
                 head->ob->board[0][random_col_index] = 'X';
                 head->ob->player = 'X';
             }
-            //보드 출력
+            //보드 출력-이수민-
             cout<<"Display board: "<<(moves_made+1)<<" moves made"<<endl;
             head->ob->display_board(head->ob);
-            //다음 순서인 O로 플레이어 바꿔줌.
+            //다음 순서인 O로 플레이어 바꿔줌-이수민-
             head->ob->player = 'O';
             *(board_ob) = *(head->ob);
             
@@ -110,22 +110,22 @@ int main(){
             head->ob->board[row][col] = 'X';
             head->ob->player = 'X';
             
-            //보드 출력
+            //보드 출력-이수민-
             cout<<"Display board: "<<(moves_made+1)<<" moves made"<<endl;
             head->ob->display_board(head->ob);
             
-            //이겼는지 확인
+            //이겼는지 확인-이수민-
             if(head->ob->checkPlayerWon()){
                 cout<<"You won!"<<endl;
                 return 0;
             }
             
-            //다음 순서인 O로 플레이어 바꿔줌.
+            //다음 순서인 O로 플레이어 바꿔줌-이수민-
             head->ob->player = 'O';
             *(board_ob) = *(head->ob);
         }
 
-        if(head->ob->player == 'X' && choiceX == 1 && moves_made >= 1){//AI 차례, 'X'
+        if(head->ob->player == 'X' && choiceX == 1 && moves_made >= 1){//AI 차례, 'X'-이수민-
             int max = -2000;
             int maxindex = -1;
             cout<<"AI turn"<<endl;
@@ -139,7 +139,7 @@ int main(){
             }
             head->ob->display_board(head->children[maxindex]->ob);
             
-            //이겼는지 확인
+            //이겼는지 확인-이수민-
             if(head->ob->checkPlayerWon()){
                 cout<<"player "<<head->ob->player<<" won!"<<endl;
                 return 0;
@@ -149,7 +149,7 @@ int main(){
             *(board_ob) = *(head->children[maxindex]->ob);
         }
 
-        if(head->ob->player == 'O' && choiceO == 0 && moves_made >= 1){//user 차례, 'O'
+        if(head->ob->player == 'O' && choiceO == 0 && moves_made >= 1){//user 차례, 'O'-이수민-
             int c;
             int row, col;
             cout<<"User's turn!"<<endl;
@@ -166,22 +166,22 @@ int main(){
             head->ob->board[row][col] = 'O';
             head->ob->player = 'O';
             
-            //보드 출력
+            //보드 출력-이수민-
             cout<<"Display board: "<<(moves_made+1)<<" moves made"<<endl;
             head->ob->display_board(head->ob);
             
-            //이겼는지 확인
+            //이겼는지 확인-이수민-
             if(head->ob->checkPlayerWon()){
                 cout<<"You won!"<<endl;
                 return 0;
             }
-            //다음 순서인 X로 플레이어 바꿔줌.
+            //다음 순서인 X로 플레이어 바꿔줌-이수민-
             head->ob->player = 'X';
             *(board_ob) = *(head->ob);
             
         }
 
-        if(head->ob->player == 'O' && choiceO == 1 && moves_made >= 1){//AI 차례, 'O'
+        if(head->ob->player == 'O' && choiceO == 1 && moves_made >= 1){//AI 차례, 'O'-이수민-
             int max = -2000;
             int maxindex = -1;
             cout<<"AI turn"<<endl;
@@ -195,7 +195,7 @@ int main(){
             }
             head->ob->display_board(head->children[maxindex]->ob);
             
-            //이겼는지 확인
+            //이겼는지 확인-이수민-
             if(head->ob->checkPlayerWon()){
                 cout<<"player "<<head->ob->player<<" won!"<<endl;
                 return 0;
