@@ -10,14 +10,14 @@ using namespace std;
 row_index와 col_index를 -1로 할당한다. player char 변수는 n으로 할당한다.-독고준석-
  */
 tic::tic(){
-    
+    //7열 6행-독고준석-
     row_size = 6;
     col_size = 7;
-    
+    //보드 생성-독고준석
     board = new char* [row_size];
     for(int i=0;i<row_size;i++)
         board[i] = new char [col_size];
-    
+    //보드 비우기-독고준석-
     for(int i=0;i<row_size;i++){
         for(int j=0;j<col_size;j++)
             board[i][j]=' ';
@@ -142,7 +142,7 @@ bool tic::checkPlayerWon(){
     /* ---O
        --O-
        -O--
-       O--- 이런 모양 대각선 찾기
+       O--- 이런 모양 대각선 찾기-이수민-
      */
     if(!win){
         for(int r=0;r<3;r++){
@@ -166,7 +166,7 @@ bool tic::checkPlayerWon(){
      O---
      -O--
      --O-
-     ---O 이런 모양 대각선 찾기
+     ---O 이런 모양 대각선 찾기-이수민-
      */
     if(!win){
         for(int r=0;r<3;r++){
