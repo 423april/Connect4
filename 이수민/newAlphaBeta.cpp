@@ -5,7 +5,7 @@
 #include "ConnectFourBoard.h"
 using namespace std;
 
-//a constructor with no functionality
+//기능이 없는 생성자-독고준석-
 alphabeta::alphabeta(){
     eval_choice = ' ';
 }
@@ -17,16 +17,12 @@ char alphabeta::ReversePlayer(char player){
         return 'X';
 }
 
-/* this function is implemented from the algorithm given
- in Russell & Norvig text book.
- this function is used to find the node which is more probable to win
- in the future if the player plays the move returned by this function.
- 
- in this function there are 3 cases 1st being base case , 2nd being recursive case
- for player 'X' i.e Max player and the 3rd being recursive case for player 'Y'
- i.e Min player
- 
- More complete description of how this function works is explained in project report
+/* 이 함수는 교재에서 주어진 알고리즘으로부터 실행된다. 만약 player가 이 함수에 의해 리턴된 move를 한다면 이 함수는 미래에 더 이길 가능성이 높은 노드를 찾는데 이용된다.
+ 3 경우가 있다. 
+1st 기본 경우
+2nd player ‘X’에 대해 재귀적인 경우 i.e Max player
+3rd player 'Y'에 대해 재귀적인 경우 i.e Min player
+-독고준석-
  */
 int alphabeta::alpha_beta(tree* tob, int depth, char player, int alpha, int beta){
     
