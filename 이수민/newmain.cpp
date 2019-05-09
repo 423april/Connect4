@@ -14,13 +14,13 @@
 #include "AlphaBeta.h"
 using namespace std;
 
-/*variable that can be accessed by files
- TreeNodes.h and .cpp, and main function
+/*TreeNodes.h 와 .cpp와 main 함수에 의해 접근 가능한 변수-독고준석-
  */
 int num_nodes_generated, num_nodes_expanded,game_path_length,start_time,stop_time;
 
-/*made as a global variable since it must be accessible to
- Minmax() fn and also AlphaBeta() fn
+/*전역 변수인데 그 이유는
+ Minmax() 와 AlphaBeta()에 접근 가능해야하기 때문이다.
+-독고준석-
  */
 char evalfn_choiceX,evalfn_choiceO;
 
