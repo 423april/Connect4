@@ -4,9 +4,7 @@
 #include "TreeNodes.h"
 using namespace std;
 
-/* a constructor for the tree class that
- initializes all member variables of tree
- class
+/*트리 클래스의 모든 멤버 변수들을 초기화하는 트리 클래스를 위한 생성자-독고준석-
  */
 tree::tree(){
     
@@ -15,16 +13,13 @@ tree::tree(){
     for(int i=0;i<7;i++){
         children[i] = NULL;
     }
-    //creates pointer for new tic object
+    //tic 객체를 위한 포인터를 생성-독고준석-
     ob = new tic();
     
 }
 
-/* this function creates nodes dynamically
- by using the new operator and assigns the
- address of the node returned by new
- operator to the pointer array that is
- member of each node(i.e tree object)
+/* 이 함수는 새로운 연산자를 이용하여 노드들을 동적으로 생성하고 
+새로운 연산자에 의해 리턴된 노드의 주소를 각 노드의 멤버인 포인터 배열에 할당한다.(i.e 트리 객체)-독고준석-
  */
 void tree::create_node(char p){
     
@@ -32,21 +27,17 @@ void tree::create_node(char p){
 }
 
 
-/* sets the heuristic value using the
- variable value to nodes (i.e tree object)
+/* 변수 값을 이용하여 휴리스틱 값을 노드에 설정한다.(i.e 트리 객체)-독고준석-
  */
 void tree::set_heuristic_value(int value){
     
     heuristic_value = value;
 }
 
-/* this function creates 7 nodes(i.e for child's)
- dynamically by using the create_node function
- above, assigns the player for each of those
- nodes and calls check_possible_moves function
- defined in the ConnectFourBoard.cpp file
- for all the possible moves that can be made by
- the player and assigns them
+/* 이 함수는 7 노드들을 create_node 함수를 이용하여 동적으로 생성한다.(i.e for child's) 
+그리고 각 노드에 대해 플레이어를 할당하고 
+ConnectFourBoard.cpp 파일에 정의된 check_possible_moves 함수를 호출하여 
+플레이어가 수행 할 수 있는 모든 동작을 호출하고 할당한다.-독고준석-
  */
 void tree::add_all_children(){
     
@@ -57,18 +48,15 @@ void tree::add_all_children(){
         
         create_node('n');
         
-        /*does the same task as above create_node('n');
+        /*같은 작업을 한다 as above create_node('n');
          num_children++;
-         this->children[i] = new tree();
+         this->children[i] = new tree();-독고준석-
          */
         
         *(children[i]->ob) = *(this->ob);
         
         
-        /*checks parents node move i.e 'X'/'O' and makes
-         child's move with the other character(Player)
-         also sets the child's player to be that of
-         the opposite of parent nodes player
+        /*부모 노드 move를 확인한다. i.e 'X'/'O' 그리고 다른 character(Player)와 함께 child의move를 만든다.-독고준석-
          */
         
         if(this->ob->player == 'X'){
@@ -86,8 +74,7 @@ void tree::add_all_children(){
             p = 'X';
             this->children[i]->ob->player = p;
         }
-        /* keeps a count of the total number of
-         nodes that is generated
+        /* 생성된 노드들의 총 수를 세는 것을 유지한다.-독고준석-
          */
         num_nodes_generated++;
         children[i]->ob->checkPossibleMoves();
@@ -97,17 +84,10 @@ void tree::add_all_children(){
     }
 }
 
-/* this function is used for a depth cut-off
- it has 3 cases where in 1st checks for
- whether heuristic value is set or not
- 2nd checks whether a particular depth
- has been reached or not or if a player
- has won the game then return true
- 3rd case being that both above cases
- failed that calls the above add_all_children
- function and return false once the control
- is returned back from the add_all_children
- function
+/* 이 함수는 depth를 자르기 위해 사용된다.
+ 1st 휴리스틱 값이 설정됐는지를 확인
+ 2nd 특정 깊이에 도달됐는지 혹은 player가 게임을 이겼는지 확인
+ 3rd 위의 두 경우 모두 위의 add_all_children 함수를 호출하지 못하고 add_all_children 함수에서 컨트롤이 반환되면 false를 반환-독고준석-
  */
 bool tree::deep_enough(int depth){
     
@@ -415,11 +395,7 @@ int tree::evaluation_h(){
     return value;
 }
 
-/* this function copies one nodes board configuration
- to the other nodes board it the board's configuration
- that needs to be copied as a reference parameter
- passed to the function and copies all the contents of the
- rhs board object to the lhs board ob
+/* 이 함수는 하나의 노드들 보드 구성을 다른 노드들 보드로 복사한다. 참조 매개 변수로 복사될 필요가 있는 보드의 구성들이 함수로 넘겨지고 rhs 보드 객체의 내용들을 lhs 보드 객체로 복사한다.-독고준석-
  */
 void tree::copy_board_status(tic &tc){
     
@@ -435,11 +411,7 @@ void tree::copy_board_status(tic &tc){
     }
 }
 
-/* this function return a particular child node
- which has the same heuristic value as that of
- its parent node i.e it return the optimal child
- node's index (i.e 'i' in our case) that is
- most probable to win in the future
+/* 이 함수는 부모 노드와 같은 휴리스틱 값을 갖는 특정한 child 노드를 리턴한다. i.e 그것은 미래에 이길 가능성이 가장 높은 최적 child 노드의 index(i.e 'i' in our case)를 리턴한다.-독고준석-
  */
 int tree::getOptimalNode(){
     
@@ -450,8 +422,7 @@ int tree::getOptimalNode(){
     return -1;
 }
 
-/* this function checks whether the terminal node has been reached
- and calls display_contents function
+/* 이 함수는 터미널 노드에 도달했는지 확인하고 display_contents 함수를 호출한다.-독고준석-
  */
 void tree::helper(){
     
@@ -491,17 +462,13 @@ void tree::helper(){
     }
 }
 
-/* this function calls the above getOptimalNode function
- stores the child's index and copies this child node's
- board configuration to other created board by using
- overloaded = operator to copy or else when a terminal node
- i.e a win state is reached it calls the helper function
+/*이 함수는 getOptimalNode 함수를 호출하고 child의 index를 저장하고 이 child 노드들의 보드 구성을 다른 만들어진 보드로 복사한다. i.e 승리 상태에 도달하면 helper 함수가 호출된다.-독고준석-
  */
 void tree::move_gen(tic *board_ob,int moves_made){
     int child_number = this->getOptimalNode();
     
     if(child_number != -1){
-        //since child number can be 0 - 6 so counter=-1
+        //child 숫자가 0 – 6일 수 있으므로 counter=-1-독고준석-
         *(board_ob) = *(this->children[child_number]->ob);
         if(moves_made == 2 || moves_made == 6 || moves_made == 10 || moves_made == 15){
             cout<<"Board state after "<<moves_made<<" moves:"<<endl;
@@ -514,8 +481,7 @@ void tree::move_gen(tic *board_ob,int moves_made){
 }
 
 
-/* this function is used for displaying the
- results of the connect-four game
+/* 이 함수는 커넥트포 게임의 결과를 보여주는데 이용된다.-독고준석-
  */
 void tree::display_contents(){
     
@@ -529,7 +495,7 @@ void tree::display_contents(){
     ob->display_board(ob);
     cout<<endl;
     cout<<"Number of nodes generated: "<<num_nodes_generated<<endl;
-    // +1 is for the root node since it is also expanded from the empty board
+    // +1은 빈 보드에서 확장되므로 루트 노드를 위한 것이다.-독고준석-
     cout<<"Number of nodes expanded: "<< num_nodes_expanded + 1 <<endl;
     cout<<"Total length of game path: "<<game_path_length<<endl;
     cout<<"Memory size used by 1 node is: 268 bytes"<<endl;
