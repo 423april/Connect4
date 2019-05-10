@@ -10,6 +10,7 @@ alphabeta::alphabeta(){
     eval_choice = ' ';
 }
 
+//플레이어를 바꿔주기 위한 함수이다. X이면 O로, O면 X로.-이수민-
 char alphabeta::ReversePlayer(char player){
     if(player == 'X')
         return 'O';
