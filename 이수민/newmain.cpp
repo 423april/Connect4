@@ -2,8 +2,9 @@
 //  newmain.cpp
 //  connect4
 //
-//  Created by April Lee on 03/05/2019.
-//  Copyright © 2019 April Lee. All rights reserved.
+//  https://github.com/0bit093/Connect_Four-Game 의 공개코드를 참고했다. 해당 코드의 트리 구조와 게임 구동 방식을 이용했다. 
+//  차이점은 해당 코드는  AI vs AI의 형식으로 되어있었던 반면 과제는 AI vs Human으로 진행을 해야했기 때문에 이것이 가능하도록 수정했다. 
+//  첫번째 착수에 가운데열에 돌을 두지 못하도록 수정했다. 
 //
 
 #include <iostream>
