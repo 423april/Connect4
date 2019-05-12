@@ -8,7 +8,7 @@
 #include <iostream>
 #include <ctime>
 #include <climits>
-
+#include "neweval.h"
 #include "TreeNodes (2).h"
 #include "ConnectFourBoard (2).h"
 #include "AlphaBeta (2).h"
@@ -155,6 +155,19 @@ int main(){
                 }
             }
             clock_t  finish = clock();
+     
+                     //위급상황시 
+            for(int i=0;i<7;i++)
+            {
+            	if(head->children[maxindex]->heuristic_value<neweval(head->children[i]))
+            	{
+            		
+            		maxindex=i;
+            		*(head->children[maxindex]->ob)=*(head->children[i]->ob);
+            		max=head->children[maxindex]->heuristic_value=neweval(head->children[i]);
+            		
+				}
+			}
             
             cout<<"----------------------------->>>"<<endl;
             double elapsed_secs = double(finish - begin) / CLOCKS_PER_SEC;
@@ -238,6 +251,19 @@ int main(){
                 }
             }
             clock_t  finish = clock();
+        
+                     //위급상황시 
+            for(int i=0;i<7;i++)
+            {
+            	if(head->children[maxindex]->heuristic_value<neweval(head->children[i]))
+            	{
+            		
+            		maxindex=i;
+            		*(head->children[maxindex]->ob)=*(head->children[i]->ob);
+            		max=head->children[maxindex]->heuristic_value=neweval(head->children[i]);
+            		
+				}
+			}
             
             cout<<"----------------------------->>>"<<endl;
             double elapsed_secs = double(finish - begin) / CLOCKS_PER_SEC;
