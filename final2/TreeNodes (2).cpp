@@ -123,7 +123,7 @@ bool tree::deep_enough(int depth){
     if(heuristic_value!= INT_MIN) 
         return heuristic_value;
     
-    if(depth == 10|| ob->checkPlayerWon()){
+    if(depth == 8|| ob->checkPlayerWon()){
         if(ob->checkPlayerWon()){
             /*so that the last terminal node is
              also added to the tree i.e
