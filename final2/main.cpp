@@ -38,6 +38,10 @@ int main(){
     cin>>order;
     cout<<endl;
     
+    /* user가 선공을 고르면 X가 user, O가 AI가 된다.
+       user가 후공을 고르면 X가 AI, O가 user가 된다.
+     */
+    
     if(order == 1){
         choiceX = 0; //user bit = 0
         choiceO = 1;

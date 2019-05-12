@@ -6,6 +6,8 @@
 
 using namespace std;
 
+//original code from https://github.com/0bit093/Connect_Four-Game
+
 /* a constructor for the tree class that
  initializes all member variables of tree
  class
@@ -52,7 +54,8 @@ void tree::set_heuristic_value(int value){
     heuristic_value = value;
 }
 
-/* 이 함수는 7 노드들을 create_node 함수를 이용하여 동적으로 생성한다.(i.e for child's)
+/*
+ 이 함수는 7 노드들을 create_node 함수를 이용하여 동적으로 생성한다.(i.e for child's)
  그리고 각 노드에 대해 플레이어를 할당하고
  ConnectFourBoard.cpp 파일에 정의된 check_possible_moves 함수를 호출하여
  플레이어가 수행 할 수 있는 모든 동작을 호출하고 할당한다.-독고준석-
@@ -109,7 +112,8 @@ void tree::add_all_children(){
     }
 }
 
-/* 이 함수는 depth를 자르기 위해 사용된다.
+/* 
+ 이 함수는 depth를 자르기 위해 사용된다.
  1st 휴리스틱 값이 설정됐는지를 확인
  2nd 특정 깊이에 도달됐는지 혹은 player가 게임을 이겼는지 확인
  3rd 위의 두 경우 모두 위의 add_all_children 함수를 호출하지 못하고 add_all_children 함수에서 컨트롤이 반환되면 false를 반환-독고준석-
@@ -259,116 +263,5 @@ int tree::evaluation(char aiplayer){
     return eval;
 }
 
-
-
-
-/* 이 함수는 하나의 노드들 보드 구성을 다른 노드들 보드로 복사한다.
- 참조 매개 변수로 복사될 필요가 있는 보드의 구성들이 함수로 넘겨지고 rhs 보드 객체의 내용들을 lhs 보드 객체로 복사한다.-독고준석-
- */void tree::copy_board_status(tic &tc){
-    
-    for(int i=0;i<ob->row_size;i++){
-        for(int j=0;j<ob->col_size;j++){
-            this->ob->board[i][j] = tc.board[i][j];
-        }
-    }
-    
-    for(int i=0;i<7;i++){
-        this->ob->moves[i].col_index = tc.moves[i].col_index;
-        this->ob->moves[i].row_index = tc.moves[i].row_index;
-    }
-}
-
-/* 이 함수는 부모 노드와 같은 휴리스틱 값을 갖는 특정한 child 노드를 리턴한다. i.e 그것은 미래에 이길 가능성이 가장 높은 최적 child 노드의 index(i.e 'i' in our case)를 리턴한다.-독고준석-
- */
-int tree::getOptimalNode(){
-    
-    for(int i=0;i<7;i++){
-        if(children[i]->heuristic_value == this->heuristic_value && this->heuristic_value != -2000)
-            return i;
-    }
-    return -1;
-}
-
-/* 이 함수는 터미널 노드에 도달했는지 확인하고 display_contents 함수를 호출한다.-독고준석-
- */
-void tree::helper(){
-    
-    char c1,c2,c3,c4;
-    
-    for(int r=0;r<3;r++){
-        for(int c=6;c>2;c--){
-            c1 = ob->board[r][c];
-            c2 = ob->board[r+1][c-1];
-            c3 = ob->board[r+2][c-2];
-            c4 = ob->board[r+3][c-3];
-            //board[r][c]==board[r+1][c-1]==board[r+2][c-2]==board[r+3][c-3]
-            if((c1 == c2 && c2 == c3 && c4 == ' ' && c1 == this->ob->player && this->ob->board[r+2][c-3]!= ' ')){
-                //cout<<"RHS matched"<<endl;
-                this->ob->board[r+3][c-3] = this->ob->player;
-                display_contents();
-                exit(0);
-            }
-        }
-    }
-    
-    //looking form left end of array lhs-diagonal
-    for(int r=0;r<3;r++){
-        for(int c=0;c<4;c++){
-            c1 = ob->board[r][c];
-            c2 = ob->board[r+1][c+1];
-            c3 = ob->board[r+2][c+2];
-            c4 = ob->board[r+3][c+3];
-            //board[r][c]==board[r+1][c+1]==board[r+2][c+2]==board[r+3][c+3]
-            if((c1 == c2 && c2 == c3 && c4 == ' ' && c1 == this->ob->player && this->ob->board[r+2][c-3]!= ' ')){
-                //cout<<"LHS matched"<<endl;
-                this->ob->board[r+3][c+3] = this->ob->player;
-                display_contents();
-                exit(0);
-            }
-        }
-    }
-}
-
-/*이 함수는 getOptimalNode 함수를 호출하고 child의 index를 저장하고 이 child 노드들의 보드 구성을 다른 만들어진 보드로 복사한다. i.e 승리 상태에 도달하면 helper 함수가 호출된다.-독고준석-
- */
-void tree::move_gen(tic *board_ob,int moves_made){
-    int child_number = this->getOptimalNode();
-    
-    if(child_number != -1){
-        //since child number can be 0 - 6 so counter=-1
-        *(board_ob) = *(this->children[child_number]->ob);
-        if(moves_made == 2 || moves_made == 6 || moves_made == 10 || moves_made == 15){
-            cout<<"Board state after "<<moves_made<<" moves:"<<endl;
-            board_ob->display_board(board_ob);
-        }
-    }
-    
-    else if(child_number == -1)
-        this->helper();
-}
-
-
-/* 이 함수는 커넥트포 게임의 결과를 보여주는데 이용된다.-독고준석-
- */
-void tree::display_contents(){
-    
-    clock_t stop_time = clock();
-    clock_t total_time = (stop_time - start_time);
-    double memory_used = 0.0;
-    
-    cout<<this->ob->player<<" Won!"<<endl;
-    cout<<endl;
-    cout<<"Terminal(win) state of the board:"<<endl;
-    ob->display_board(ob);
-    cout<<endl;
-    cout<<"Number of nodes generated: "<<num_nodes_generated<<endl;
-    // +1 is for the root node since it is also expanded from the empty board
-    cout<<"Number of nodes expanded: "<< num_nodes_expanded + 1 <<endl;
-    cout<<"Total length of game path: "<<game_path_length<<endl;
-    cout<<"Memory size used by 1 node is: 268 bytes"<<endl;
-    cout<<"Total size of memory used by program: "<<(268*num_nodes_generated)<<" bytes"<<endl;
-    cout<<"Total execution Time: "<<(total_time) / double(CLOCKS_PER_SEC)<<"'s"<<endl;
-    
-}
 
 

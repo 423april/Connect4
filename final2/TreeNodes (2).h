@@ -34,10 +34,5 @@ public:
     bool deep_enough(int);
     int innerEval(char, char, char, char, char, char);
     int evaluation(char);
-    void copy_board_status(tic &);
-    void helper();
-    void display_contents();
-    int getOptimalNode();
-    void move_gen(tic *,int);
 };
 #endif // TREENODES_H_INCLUDED
