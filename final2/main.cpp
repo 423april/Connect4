@@ -166,6 +166,7 @@ int main(){
                 cout<<"열 "<<k<<"의 평가함수 값: "<<head->children[k]->heuristic_value<<endl;
             }
             cout<<maxindex<<"의 평가함수 값이 "<<head->children[maxindex]->heuristic_value<<"로 제일 높기 때문에 선택했다."<<endl;
+            cout<<"상세한 이유: "<<head->children[maxindex]->str<<endl;
             head->ob->display_board(head->children[maxindex]->ob);
             
             //이겼는지 확인
@@ -248,6 +249,7 @@ int main(){
                 cout<<"열 "<<k<<"의 평가함수 값: "<<head->children[k]->heuristic_value<<endl;
             }
             cout<<maxindex<<"의 평가함수 값이 "<<head->children[maxindex]->heuristic_value<<"로 제일 높기 때문에 선택했다."<<endl;
+            cout<<"상세한 이유: "<<head->children[maxindex]->str<<endl;
             head->ob->display_board(head->children[maxindex]->ob);
             
             //이겼는지 확인
