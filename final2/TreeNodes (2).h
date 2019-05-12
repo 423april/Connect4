@@ -23,6 +23,7 @@ public:
     /*board configuration 담은 변수
      */
     tic *ob;
+    string str;
     
     
     //Member functions of tree class
