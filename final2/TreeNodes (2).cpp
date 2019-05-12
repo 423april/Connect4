@@ -19,7 +19,7 @@ tree::tree(){
     for(int i=0;i<7;i++){
         children[i] = NULL;
     }
-    
+    str="";
     use = false;
     
     //creates pointer for new tic object
@@ -153,35 +153,60 @@ int tree::innerEval(char c1, char c2, char c3, char c4, char me, char opp){
     //3개가 me일때 value에 50 더해줌
     if((c1 == me && c2== me && c3== me && c4 == blank)||(c1 == me && c2== me && c3== blank && c4 == me)|(c1 == me && c2== blank && c3 == me && c4 == me)|(c1 == blank && c2== me && c3== me && c4 == me)){
         value += 50 ;
+         string s="3개가 me일때 value에 50 더해줌";
+        this->str.append(s);
+        this->str.push_back('+');
+     
     }
     //2개가 me일때 value에 15 더해줌
     if((c1 == me && c2== me && c3== blank && c4 == blank)||(c1 == me && c2== blank && c3== me && c4 == blank)|(c1 == me && c2== blank && c3 == blank && c4 == me)|(c1 == blank && c2== me && c3== me && c4 == blank)|(c1 == blank && c2== me && c3== blank && c4 == me)|(c1 == blank && c2== blank && c3== me && c4 == me)){
         value += 15 ;
+        string s="2개가 me일때 value에 15 더해줌";
+        this->str.append(s);
+        this->str.push_back('+');
     }
     //1개가 me일때 value에 3 더해줌
     if((c1 == me && c2== blank && c3== blank && c4 == blank)||(c1 == blank && c2== me && c3== blank && c4 == blank)|(c1 == blank && c2== blank && c3 == me && c4 == blank)|(c1 == blank && c2== blank && c3== blank && c4 == me)){
         value += 3 ;
+        string s="1개가 me일때 value에 3 더해줌";
+        this->str.append(s);
+        this->str.push_back('+');
     }
     //3개가 opp일때 value에서 80 빼줌
     if((c1 == opp && c2== opp && c3== opp && c4 == blank)||(c1 == opp && c2== opp && c3== blank && c4 == opp)|(c1 == opp && c2== blank && c3 == opp && c4 == opp)|(c1 == blank && c2== opp && c3== opp && c4 == opp)){
         value -= 50 ;
+        string s="3개가 opp일때 value에서 80 빼줌";
+        this->str.append(s);
+        this->str.push_back('+');
     }
     //2개가 opp일때 value에서 30 빼줌
     if((c1 == opp && c2== opp && c3== blank && c4 == blank)||(c1 == opp && c2== blank && c3== opp && c4 == blank)|(c1 == opp && c2== blank && c3 == blank && c4 == opp)|(c1 == blank && c2== opp && c3== opp && c4 == blank)|(c1 == blank && c2== opp && c3== blank && c4 == opp)|(c1 == blank && c2== blank && c3== opp && c4 == opp)){
         value -= 15 ;
+         string s="2개가 opp일때 value에서 30 빼줌";
+        this->str.append(s);
+        this->str.push_back('+');
     }
     //1개가 opp일때 value에서 10 빼줌
     if((c1 == opp && c2== blank && c3== blank && c4 == blank)||(c1 == blank && c2== opp && c3== blank && c4 == blank)|(c1 == blank && c2== blank && c3 == opp && c4 == blank)|(c1 == blank && c2== blank && c3== blank && c4 == opp)){
         value -= 3 ;
+         string s="1개가 opp일때 value에서 10 빼줌";
+        this->str.append(s);
+        this->str.push_back('+');
     }
     //4개 다 me일때, 즉 이기는 경우 -> +1000000 부여
     if(c1 == me && c2== me && c3== me && c4== me){
         value += 1000000;
+         string s="4개 다 me일때, 즉 이기는 경우 -> +1000000 부여";
+        this->str.append(s);
+        this->str.push_back('+');
     }
     
     //4개 다 opp일때, 즉 이기는 경우 -> -1000000 부여
     if(c1 == opp && c2== opp && c3== opp && c4== opp){
         value -= 1000000;
+        string s="4개 다 opp일때, 즉 이기는 경우 -> -1000000 부여";
+        this->str.append(s);
+        this->str.push_back('+');
     }
     
     return value;
